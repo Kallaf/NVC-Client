@@ -1,28 +1,10 @@
 $(document).ready(function() {
-  var ctx = document.getElementById("myChart").getContext("2d");
-
-  var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [{
-      label: "My First dataset",
-      fillColor: "rgba(220,220,220,0.2)",
-      strokeColor: "rgba(220,220,220,1)",
-      pointColor: "rgba(220,220,220,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(220,220,220,1)",
-      data: [65, 59, 80, 81, 56, 55, 40]
-    }, {
-      label: "My Second dataset",
-      fillColor: "rgba(151,187,205,0.2)",
-      strokeColor: "rgba(151,187,205,1)",
-      pointColor: "rgba(151,187,205,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(151,187,205,1)",
-      data: [28, 48, 40, 19, 86, 27, 90]
-    }]
-  };
+  var barChart = document.getElementById("barChart").getContext("2d");
+  var lineChart = document.getElementById("lineChart").getContext("2d");
+  var barChart1 = document.getElementById("barChart1").getContext("2d");
+  var lineChart1 = document.getElementById("lineChart1").getContext("2d");
+  var barChart2 = document.getElementById("barChart2").getContext("2d");
+  
   var options = {
     animation: false,
     //Boolean - If we want to override with a hard coded scale
@@ -36,44 +18,74 @@ $(document).ready(function() {
     scaleStartValue: 0
   };
 
-  var myLineChart = new Chart(ctx , {
+  var myBarChart = new Chart(barChart , {
+      type: "bar",
+      data: data,
+      options: options 
+  });
+
+ var myLineChart = new Chart(lineChart , {
       type: "line",
       data: data,
       options: options 
   });
 
+
+ var myBarChart1 = new Chart(barChart1 , {
+      type: "bar",
+      data: data,
+      options: options 
+  });
+
+ var myLineChart1 = new Chart(lineChart1 , {
+      type: "line",
+      data: data,
+      options: options 
+  });
+
+  var myBarChart2 = new Chart(barChart2 , {
+      type: "bar",
+      data: data,
+      options: options 
+  });
+
+
   setInterval(function() {
     setData(data.datasets[0].data);
-    setData(data.datasets[1].data);
-    setLabels(data.labels);
+    //setLabels(data.labels);
 
-      var myLineChart = new Chart(ctx , {
+      var myBarChart = new Chart(barChart , {
+        type: "bar",
+        data: data,
+        options: options 
+    });
+
+      var myLineChart = new Chart(lineChart , {
+      type: "line",
+      data: data,
+      options: options 
+  });
+
+      var myBarChart1 = new Chart(barChart1 , {
+        type: "bar",
+        data: data,
+        options: options 
+    });
+
+   var myLineChart1 = new Chart(lineChart1 , {
         type: "line",
         data: data,
         options: options 
     });
+
+    var myBarChart2 = new Chart(barChart2 , {
+        type: "bar",
+        data: data,
+        options: options 
+    });
+
+
+
   }, 800);
-
-  function setLabels(labels) {
-    var nextMonthIndex = months.indexOf(labels[labels.length - 1]) + 1;
-    var nextMonthName = months[nextMonthIndex] != undefined ? months[nextMonthIndex] : "January";
-    labels.push(nextMonthName);
-    labels.shift();
-  }
-
-  function setData(data) {
-    data.push(Math.floor(Math.random() * 100) + 1);
-    data.shift();
-  }
-  
-  function convertMonthNameToNumber(monthName) {
-    var myDate = new Date(monthName + " 1, 2016");
-    var monthDigit = myDate.getMonth();
-    return isNaN(monthDigit) ? 0 : (monthDigit + 1);
-  }
-  
-  var months = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
 
 });
