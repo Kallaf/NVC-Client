@@ -1,9 +1,13 @@
 $(document).ready(function() {
-  var barChart = document.getElementById("barChart").getContext("2d");
-  var lineChart = document.getElementById("lineChart").getContext("2d");
-  var barChart1 = document.getElementById("barChart1").getContext("2d");
-  var lineChart1 = document.getElementById("lineChart1").getContext("2d");
-  var barChart2 = document.getElementById("barChart2").getContext("2d");
+  var numberOfTrips = document.getElementById("numberOfTrips").getContext("2d");
+  var numberOfVechiles = document.getElementById("numberOfVechiles").getContext("2d");
+  var gWithoutDropOff = document.getElementById("gWithoutDropOff").getContext("2d");
+  var yWithoutDropOff = document.getElementById("yWithoutDropOff").getContext("2d");
+  var fWithoutDropOff = document.getElementById("fWithoutDropOff").getContext("2d");
+  var gFrom = document.getElementById("gFrom").getContext("2d");
+  var yFrom = document.getElementById("yFrom").getContext("2d");
+  var fFrom = document.getElementById("fFrom").getContext("2d");
+  var tripMinutes = document.getElementById("tripMinutes").getContext("2d");
   
   var options = {
     animation: false,
@@ -18,71 +22,127 @@ $(document).ready(function() {
     scaleStartValue: 0
   };
 
-  var myBarChart = new Chart(barChart , {
+  var numberOfTripsChart = new Chart(numberOfTrips , {
       type: "bar",
-      data: data,
+      data: tripsPerDay,
       options: options 
   });
 
- var myLineChart = new Chart(lineChart , {
+  var numberOfVechilesChart = new Chart(numberOfVechiles , {
+      type: "bar",
+      data: vechilesPerDay,
+      options: options 
+  });
+
+ var gWithoutDropOffChart = new Chart(gWithoutDropOff , {
       type: "line",
-      data: data,
+      data: gWithoutDropOffPerDay,
       options: options 
   });
 
-
- var myBarChart1 = new Chart(barChart1 , {
-      type: "bar",
-      data: data,
-      options: options 
-  });
-
- var myLineChart1 = new Chart(lineChart1 , {
+ var yWithoutDropOffChart = new Chart(yWithoutDropOff , {
       type: "line",
-      data: data,
+      data: yWithoutDropOffPerDay,
       options: options 
   });
 
-  var myBarChart2 = new Chart(barChart2 , {
+  var fWithoutDropOffChart = new Chart(fWithoutDropOff , {
+      type: "line",
+      data: fWithoutDropOffPerDay,
+      options: options 
+  });
+
+  var gFromChart = new Chart(gFrom , {
+      type: "line",
+      data: gFromM,
+      options: options 
+  });
+
+ var yFromChart = new Chart(yFrom , {
+      type: "line",
+      data: yFromM,
+      options: options 
+  });
+
+  var fFromChart = new Chart(fFrom , {
+      type: "line",
+      data: fFromM,
+      options: options 
+  });
+
+  var tripMinutesChart = new Chart(tripMinutes , {
       type: "bar",
-      data: data,
+      data: minutesPerTrip,
       options: options 
   });
 
 
   setInterval(function() {
     setData(data.datasets[0].data);
+    setData(tripsPerDay.datasets[0].data);
+    setData(vechilesPerDay.datasets[0].data);
+    setData(gWithoutDropOffPerDay.datasets[0].data);
+    setData(yWithoutDropOffPerDay.datasets[0].data);
+    setData(fWithoutDropOffPerDay.datasets[0].data);
+    setData(gFromM.datasets[0].data);
+    setData(yFromM.datasets[0].data);
+    setData(fFromM.datasets[0].data);
+    setData(minutesPerTrip.datasets[0].data);
     //setLabels(data.labels);
 
-      var myBarChart = new Chart(barChart , {
-        type: "bar",
-        data: data,
-        options: options 
-    });
+      var numberOfTripsChart = new Chart(numberOfTrips , {
+          type: "bar",
+          data: tripsPerDay,
+          options: options 
+      });
 
-      var myLineChart = new Chart(lineChart , {
-      type: "line",
-      data: data,
-      options: options 
-  });
+      var numberOfVechilesChart = new Chart(numberOfVechiles , {
+          type: "bar",
+          data: vechilesPerDay,
+          options: options 
+      });
 
-      var myBarChart1 = new Chart(barChart1 , {
-        type: "bar",
-        data: data,
-        options: options 
-    });
+      var gWithoutDropOffChart = new Chart(gWithoutDropOff , {
+          type: "line",
+          data: gWithoutDropOffPerDay,
+          options: options 
+      });
 
-   var myLineChart1 = new Chart(lineChart1 , {
-        type: "line",
-        data: data,
-        options: options 
-    });
+     var yWithoutDropOffChart = new Chart(yWithoutDropOff , {
+          type: "line",
+          data: yWithoutDropOffPerDay,
+          options: options 
+      });
 
-    var myBarChart2 = new Chart(barChart2 , {
-        type: "bar",
-        data: data,
-        options: options 
-    });
+      var fWithoutDropOffChart = new Chart(fWithoutDropOff , {
+          type: "line",
+          data: fWithoutDropOffPerDay,
+          options: options 
+      });
+
+      var gFromChart = new Chart(gFrom , {
+          type: "line",
+          data: gFromM,
+          options: options 
+      });
+
+     var yFromChart = new Chart(yFrom , {
+          type: "line",
+          data: yFromM,
+          options: options 
+      });
+
+      var fFromChart = new Chart(fFrom , {
+          type: "line",
+          data: fFromM,
+          options: options 
+      });
+
+      var tripMinutesChart = new Chart(tripMinutes , {
+          type: "bar",
+          data: minutesPerTrip,
+          options: options 
+      });
 
 
 
