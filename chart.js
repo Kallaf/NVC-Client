@@ -5,7 +5,7 @@ $(document).ready(function() {
     console.log('Connected')
   });
   ws.addEventListener('message', (event) => {
-    console.log("new message");
+    console.log(event.data);
   });
 
 

@@ -1,10 +1,10 @@
-#### Requirments
+## Requirments
 
 Find requirement [here](https://drive.google.com/file/d/14Yq5ZGAcoOjo_RiPAxdOme0m65J8O1u_/view?usp=sharing)
 
-#### How to run
+## How to run
 
-### Linux
+#### Linux
 
 * Run server
 
@@ -26,8 +26,8 @@ cd <server-path>/bin
 2. Go to project directory
 ```bash
 cd <client-path>
-python -m SimpleHTTPServer 3000
+python -m SimpleHTTPServer 19001
 ```
-7. open browser and go to localhost:3000
+7. open browser and go to localhost:19001
 
 [1]: https://drive.google.com/file/d/1OeQYIQVRu9lkL3INAm23zK2oq5Dwd_X2/view?usp=sharing
