@@ -1,4 +1,14 @@
 $(document).ready(function() {
+
+  const ws = new WebSocket('ws://localhost:9000/ws');
+  ws.addEventListener('open', (event) => {
+    console.log('Connected')
+  });
+  ws.addEventListener('message', (event) => {
+    console.log("new message");
+  });
+
+
   var numberOfTrips = document.getElementById("numberOfTrips").getContext("2d");
   var numberOfVechiles = document.getElementById("numberOfVechiles").getContext("2d");
   var gWithoutDropOff = document.getElementById("gWithoutDropOff").getContext("2d");
