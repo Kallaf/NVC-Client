@@ -11,10 +11,10 @@ var colors = ['green','yellow','fhv']
 var minutes_per_trip = [30,50,20]
 var data = []
 
-for(let i=1;i<31;i++)
+for(let i=0;i<=31;i++)
 {
   days.push(i);
-  trips_per_day.push(Math.floor(Math.random() * 100) + 1);
+  trips_per_day.push(0);
   vechiles_per_day.push(Math.floor(Math.random() * 100) + 1);
   green_without_drop_off.push(Math.floor(Math.random() * 100) + 1);
   yellow_without_drop_off.push(Math.floor(Math.random() * 100) + 1);
@@ -23,19 +23,7 @@ for(let i=1;i<31;i++)
   green_from.push(Math.floor(Math.random() * 100) + 1);
   yellow_from.push(Math.floor(Math.random() * 100) + 1);
   fhv_from.push(Math.floor(Math.random() * 100) + 1);
-  data.push(Math.floor(Math.random() * 100) + 1);
 }
-
-
-var data = {
-    labels: days,
-    datasets: [{
-      label: "Data",
-      backgroundColor:'rgba(153, 102, 255, 0.2)',
-      borderColor: 'rgba(153, 102, 255, 1)',
-      data: data
-    }]
-  };
 
 
 var tripsPerDay = {
@@ -143,6 +131,6 @@ var minutesPerTrip = {
   };
 
 function setData(data) {
-  for(let i=0;i<30;i++)
+  for(let i=0;i<=31;i++)
     data[i] = Math.floor(Math.random() * 100) + 1;
 }

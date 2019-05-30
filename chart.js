@@ -1,14 +1,5 @@
 $(document).ready(function() {
 
-  const ws = new WebSocket('ws://localhost:9000/ws');
-  ws.addEventListener('open', (event) => {
-    console.log('Connected')
-  });
-  ws.addEventListener('message', (event) => {
-    console.log(event.data);
-  });
-
-
   var numberOfTrips = document.getElementById("numberOfTrips").getContext("2d");
   var numberOfVechiles = document.getElementById("numberOfVechiles").getContext("2d");
   var gWithoutDropOff = document.getElementById("gWithoutDropOff").getContext("2d");
@@ -88,18 +79,7 @@ $(document).ready(function() {
 
 
   setInterval(function() {
-    setData(data.datasets[0].data);
-    setData(tripsPerDay.datasets[0].data);
-    setData(vechilesPerDay.datasets[0].data);
-    setData(gWithoutDropOffPerDay.datasets[0].data);
-    setData(yWithoutDropOffPerDay.datasets[0].data);
-    setData(fWithoutDropOffPerDay.datasets[0].data);
-    setData(gFromM.datasets[0].data);
-    setData(yFromM.datasets[0].data);
-    setData(fFromM.datasets[0].data);
-    setData(minutesPerTrip.datasets[0].data);
-    //setLabels(data.labels);
-
+    
       var numberOfTripsChart = new Chart(numberOfTrips , {
           type: "bar",
           data: tripsPerDay,
