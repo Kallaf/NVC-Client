@@ -1,5 +1,6 @@
 var days = []
 var trips_per_day = []
+var vechiles = new Array(33);
 var vechiles_per_day = []
 var green_without_drop_off = []
 var yellow_without_drop_off = []
@@ -8,21 +9,27 @@ var green_from = []
 var yellow_from = []
 var fhv_from = []
 var colors = ['green','yellow','fhv']
-var minutes_per_trip = [30,50,20]
-var data = []
+var minutes_per_trip = [0,0,0]
+var sum_minutes = [0,0,0]
+
+var no_of_records = 0;
+var g_no_of_trips = 0;
+var y_no_of_trips = 0;
+var f_no_of_trips = 0;
 
 for(let i=0;i<=31;i++)
 {
   days.push(i);
   trips_per_day.push(0);
-  vechiles_per_day.push(Math.floor(Math.random() * 100) + 1);
-  green_without_drop_off.push(Math.floor(Math.random() * 100) + 1);
-  yellow_without_drop_off.push(Math.floor(Math.random() * 100) + 1);
-  fhv_without_drop_off.push(Math.floor(Math.random() * 100) + 1);
+  vechiles[i] = [];
+  vechiles_per_day.push(0);
+  green_without_drop_off.push(0);
+  yellow_without_drop_off.push(0);
+  fhv_without_drop_off.push(0);
 
-  green_from.push(Math.floor(Math.random() * 100) + 1);
-  yellow_from.push(Math.floor(Math.random() * 100) + 1);
-  fhv_from.push(Math.floor(Math.random() * 100) + 1);
+  green_from.push(0);
+  yellow_from.push(0);
+  fhv_from.push(0);
 }
 
 
@@ -129,8 +136,3 @@ var minutesPerTrip = {
       data: minutes_per_trip
     }]
   };
-
-function setData(data) {
-  for(let i=0;i<=31;i++)
-    data[i] = Math.floor(Math.random() * 100) + 1;
-}
