@@ -13,9 +13,12 @@ var minutes_per_trip = [0,0,0]
 var sum_minutes = [0,0,0]
 
 var no_of_records = 0;
+var total_trips = 0;
 var g_no_of_trips = 0;
 var y_no_of_trips = 0;
 var f_no_of_trips = 0;
+var distinct_vechiles = [];
+var woodside_queen = 0;
 
 for(let i=0;i<=31;i++)
 {

@@ -10,44 +10,20 @@ function getDate(dateTime)
 
 function diff(pickupDateTime,dropOffDatetime)
 {
-  var arr = pickupDateTime.split(" ");
-
-  var date = arr[0];
-  var tt = date.split("-");
-  var sDay = parseInt(tt[2],10);
-  if(tt[1] == '10')
-    sDay = 0;
-
-  var startTime = arr[1];
-  arr = dropOffDatetime.split(" ");
-
-  var date = arr[0];
-  var tt = date.split("-");
-  var eDay = parseInt(tt[2],10);
-  if(tt[1] == '10')
-    eDay = 0;
-
-
-  var endTime = arr[1];
-  arr = startTime.split(":");
-  var sh = parseInt(arr[0], 10),sm = parseInt(arr[1], 10);
-
-  arr = endTime.split(":");
-  var eh = parseInt(arr[0], 10),em = parseInt(arr[1], 10);
-
-  var startMin = sDay * 24 * 60 + sh * 60 + sm;
-  var endMin = eDay * 24 * 60 + eh * 60 + em;
-
-  return endMin - startMin;
-
+  var start= new Date(pickupDateTime);
+  var end = new Date(dropOffDatetime);
+  return (end - start) / 60000;
 }
 
 function update_trips(pickupDateTime,type,vendorId,taxiType,pickupLocationId,dropOffLocationId)
 {
   if(type === "new_trip")
   {
+    total_trips++;
     var pick = getDate(pickupDateTime);
     tripsPerDay.datasets[0].data[pick]++;
+    if(!distinct_vechiles.includes(vendorId))
+      distinct_vechiles.push(vendorId);
     if(!vechiles[pick].includes(vendorId))
       vechiles[pick].push(vendorId);
     vechilesPerDay.datasets[0].data[pick] = vechiles[pick].length;
@@ -71,55 +47,61 @@ function update_trips(pickupDateTime,type,vendorId,taxiType,pickupLocationId,dro
         fFromM.datasets[0].data[pick]++;
         
     }
-
+    if(pickupLocationId == '260')
+      woodside_queen++;
   }
 }
 
 function update(record)
 {
-    for(let i in record)
-      console.log(i+": "+record[i]);
+    // for(let i in record)
+    //   console.log(i+": "+record[i]);
     update_trips(record.pickupDateTime,record.type,record.vendorId,record.taxiType,record.pickupLocationId,record.dropOffLocationId);
 
     if(record.type === "new_trip")
-  {
-    
-      var time = diff(record.pickupDateTime,record.dropOffDatetime);
-      if(record.taxiType == 'green')
-      {
-        sum_minutes[0] += time;
-        g_no_of_trips++;
-        minutesPerTrip.datasets[0].data[0] = sum_minutes[0]/g_no_of_trips;
-      }
-      else if(record.taxiType == 'yellow')
-      {
-        sum_minutes[1] += time;
-        y_no_of_trips++;
-        minutesPerTrip.datasets[0].data[1] = sum_minutes[1]/y_no_of_trips;
-      } 
-      else
-      {
-        sum_minutes[2] += time;
-        f_no_of_trips++;
-        minutesPerTrip.datasets[0].data[2] = sum_minutes[2]/f_no_of_trips;
-      }  
-    
+    {
+      
+        var time = diff(record.pickupDateTime,record.dropOffDatetime);
+        if(record.taxiType == 'green')
+        {
+          sum_minutes[0] += time;
+          g_no_of_trips++;
+          minutesPerTrip.datasets[0].data[0] = sum_minutes[0]/g_no_of_trips;
+        }
+        else if(record.taxiType == 'yellow')
+        {
+          sum_minutes[1] += time;
+          y_no_of_trips++;
+          minutesPerTrip.datasets[0].data[1] = sum_minutes[1]/y_no_of_trips;
+        } 
+        else
+        {
+          sum_minutes[2] += time;
+          f_no_of_trips++;
+          minutesPerTrip.datasets[0].data[2] = sum_minutes[2]/f_no_of_trips;
+        }  
+      
 
-  }
+    }
 }
 
 $(document).ready(function() {
 
   const websocket = new WebSocket('ws://localhost:9000/ws');
   websocket.addEventListener('open', (event) => {
-    console.log('Connected')
+    console.log('Connected');
   });
   websocket.addEventListener('message', (event) => {
     var record = JSON.parse(event.data);
-    console.log(record);
+    //console.log(record);
     for(let i in record)
       record[i] = record[i].split('"').join('');
     update(record);
+
+    no_of_records++;
+    var no_of_trips = g_no_of_trips + y_no_of_trips + f_no_of_trips;
+    var avg_trips = parseInt(total_trips/32,10);
+    console.log(no_of_records+","+no_of_trips+","+avg_trips+","+distinct_vechiles.length+","+woodside_queen);
   });
 
 });
