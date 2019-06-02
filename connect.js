@@ -54,8 +54,8 @@ function update_trips(pickupDateTime,type,vendorId,taxiType,pickupLocationId,dro
 
 function update(record)
 {
-    // for(let i in record)
-    //   console.log(i+": "+record[i]);
+     for(let i in record)
+       console.log(i+": "+record[i]);
     update_trips(record.pickupDateTime,record.type,record.vendorId,record.taxiType,record.pickupLocationId,record.dropOffLocationId);
 
     if(record.type === "new_trip")
@@ -90,18 +90,35 @@ $(document).ready(function() {
   const websocket = new WebSocket('ws://localhost:9000/ws');
   websocket.addEventListener('open', (event) => {
     console.log('Connected');
+    setInterval(() => {
+        var no_of_trips = g_no_of_trips + y_no_of_trips + f_no_of_trips;
+        var avg_trips = parseInt(total_trips/32,10);
+        var data = no_of_records+","+no_of_trips+","+avg_trips+","+distinct_vechiles.length+","+woodside_queen;
+        download("results.txt",data);
+      }, 900000);
+
   });
   websocket.addEventListener('message', (event) => {
     var record = JSON.parse(event.data);
-    //console.log(record);
+    console.log(record);
     for(let i in record)
       record[i] = record[i].split('"').join('');
     update(record);
 
     no_of_records++;
-    var no_of_trips = g_no_of_trips + y_no_of_trips + f_no_of_trips;
-    var avg_trips = parseInt(total_trips/32,10);
-    console.log(no_of_records+","+no_of_trips+","+avg_trips+","+distinct_vechiles.length+","+woodside_queen);
   });
 
 });
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
